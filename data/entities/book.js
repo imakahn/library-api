@@ -1,11 +1,11 @@
 import { open } from '../db.js';
 
-const BOOK_TABLE = 'book';
+const BOOK_TABLE = 'books';
+const BORROW_PERIOD = 14; // TODO duplicate config w/logic layer; centralize
 
 // QUERY
 
-async function add(book) {
-  // TODO validate schema
+async function add(isbn, title, author) {
   const db = await open();
 
   const sql = `INSERT INTO ${BOOK_TABLE} (isbn, title, author), VALUES (?, ?, ?)`;
@@ -22,23 +22,31 @@ function remove(id) {
 }
 
 // TODO this belongs elsewhere - is plural
-export async function getAll(filters) {
+export async function getAll(filters = {}) {
   const cols = 'isbn, title, author, date_out, user_id';
   // TODO ^ replace with model
   const db = await open();
+  const prepared = {};
 
-  const sql = `SELECT ${cols} from ${BOOK_TABLE}`;
-  const res = await db.all(sql);
+  let sql = `SELECT ${cols} from ${BOOK_TABLE}`;
 
-  console.log(res);
+  // TODO as soon as this goes over 3, make dyanmic function
+  if ( filters.user_id ) {
+    sql += `${Object.keys(prepared).length ? ' AND' : ' WHERE'} user_id = @user_id`
+    prepared['@user_id'] = filters.user_id;
+  }
+  if ( filters.overdue ) {
+    sql += `${Object.keys(prepared).length ? ' AND' : ' WHERE'} date_out < date('now', '-${BORROW_PERIOD} day')`
+  }
+  if ( filters.isbn ) {
+    sql += `${Object.keys(prepared).length ? ' AND' : ' WHERE'} isbn = @isbn`
+    prepared['@isbn'] = filters.isbn;
+  }
+
+  const stmt = await db.prepare(sql);
+  const res = await stmt.all(prepared);
 
   return res;
-
-  // filters supported: overdue, uid, isbn
-  // just call logic.isOverdue
-  // no. it's a filter done by sql. there is a cross here 
-  // while I can use .each to run the logic, to make it a 
-  // quick sql filter would just need centralized config
 }
 
 // TODO - checkout vs get? both retrieve, mixing paradigms of traditional crud vs interface

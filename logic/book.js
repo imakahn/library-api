@@ -33,6 +33,7 @@ function hasOverdue(books) {
  */
 function canCheckout(userBooks, title) { // title? bookCollection? titleList?
   // TODO schema validation -- add to notes. plus caching -- assign uuid/track ID
+  // or assertions ^
   result = true;
   reason = [];
 

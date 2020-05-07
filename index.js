@@ -4,5 +4,6 @@ console.log('index', getAll);
 
 // todo explain top-level await and link to future-state
 (async () => {
-  await getAll();
+  const all = await getAll();
+  console.log(all);
 })();

@@ -8,6 +8,8 @@ now:
 - fix database stuff
 - test logic w/errors - more, exceptions, given they are logic
 
+- make sure to sanitize input
+
 - error handling
 - test db calls, test api
 
