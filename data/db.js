@@ -21,7 +21,8 @@ export async function open() {
 }
 
 async function migrate(db) {
-  // explanation: es modules in node don't support __dirname
+  // explanation: es modules in node don't support __dirname 
+  // TODO ^ doc link
   const cwd = path.join(
     path.dirname(fileURLToPath(import.meta.url)),
     'migrations'

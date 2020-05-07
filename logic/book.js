@@ -8,7 +8,7 @@ const BORROW_PERIOD = 14; // days
  * @returns
  */
 function isOverdue(book) {
-  return (Date.now() - book.dateOut) > BORROW_PERIOD;
+  return (Date.now() - book.date_out) > BORROW_PERIOD;
 
 }
 

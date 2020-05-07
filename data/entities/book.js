@@ -6,25 +6,29 @@ const BORROW_PERIOD = 14; // TODO duplicate config w/logic layer; centralize
 // QUERY
 
 async function add(isbn, title, author) {
+  assert(Number.isInteger(isbn) && isbn.length === 10); // return error/throw otherwise
+  assert(title.length > 1);
+  assert(author.length > 1);
+
   const db = await open();
 
   const sql = `INSERT INTO ${BOOK_TABLE} (isbn, title, author), VALUES (?, ?, ?)`;
+  // according to docs, this is a wrapper around `sqlite3#Statement` so == prepared statement
   const res = await db.run(sql, book.isbn, book.title, book.author);
 
   // handle error/rethrow - return true/false
-
   // what is res? may want to return something else
   return res;
 }
 
 function remove(id) {
 
+
 }
 
-// TODO this belongs elsewhere - is plural
 export async function getAll(filters = {}) {
-  const cols = 'isbn, title, author, date_out, user_id';
-  // TODO ^ replace with model
+  const cols = 'id, isbn, title, author, date_out, user_id';
+  // TODO ^ replace with model - and filter by all!
   const db = await open();
   const prepared = {};
 
@@ -46,11 +50,9 @@ export async function getAll(filters = {}) {
   const stmt = await db.prepare(sql);
   const res = await stmt.all(prepared);
 
+  // todo return result + schema
   return res;
 }
-
-// TODO - checkout vs get? both retrieve, mixing paradigms of traditional crud vs interface
-// signal that this should be broken up
 
 // isbn would have been mapped to id earlier
 async function checkOut(id) {
