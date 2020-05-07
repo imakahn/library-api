@@ -3,9 +3,9 @@
 --------------------------------------------------------------------------------
 
 INSERT INTO users (id, name, librarian) VALUES (1, 'Brooks Hatlen', 1);
-INSERT INTO users (name) VALUES ('Andy Dufresne');
-INSERT INTO users (name) VALUES ('Tommy Williams');
-INSERT INTO users (name) VALUES ('Ellis Redding');
+INSERT INTO users (id, name) VALUES (2, 'Andy Dufresne');
+INSERT INTO users (id, name) VALUES (3, 'Tommy Williams');
+INSERT INTO users (id, name) VALUES (4, 'Ellis Redding');
 
 --------------------------------------------------------------------------------
 -- Down

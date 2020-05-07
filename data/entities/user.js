@@ -1,9 +1,4 @@
-// PROVISION
-
-
 // QUERY
-
-// do prepared statement
 
 // MODEL?
 

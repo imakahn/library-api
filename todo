@@ -1,0 +1,17 @@
+maybe rename api to services, or controller - api would be done by api doc/index.js
+
+now: 
+
+- finish queries
+- fix migrations to link to user id - which means explicit user ids
+- make basic api in index
+- fix database stuff
+- test logic w/errors - more, exceptions, given they are logic
+
+- error handling
+- test db calls, test api
+
+- make centralized config
+- work out a proper es package setup
+
+- water plants
