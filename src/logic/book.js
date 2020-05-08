@@ -41,7 +41,7 @@ export function canCheckout(booksISBN, booksBorrowed) {
   const reason = [];
 
   // if no unreserved books remain 
-  if( !booksISBN.filter((book) => book.date_out == null).length ) {
+  if( !availableFilter(booksISBN).length ) {
     result = false;
     reason.push('book unavailable')
   }
@@ -57,4 +57,8 @@ export function canCheckout(booksISBN, booksBorrowed) {
   }
 
   return { result, reason };
+}
+
+export function availableFilter(booksISBN) {
+  return booksISBN.filter((book) => book.date_out == null);
 }

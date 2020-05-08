@@ -3,4 +3,4 @@
 // MODEL?
 
 // return model that can be used to validate. eventually restructure so migrations and models are more closely tied
-// or, return object + schema 
+// e.g., return object + schema 
