@@ -3,18 +3,12 @@ import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import sqlite from 'sqlite';
 
-sqlite3.verbose();
-
 export async function open() {
   // todo singleton for DB; avoid doing migration multiple times with short circuit
   const db = await sqlite.open({
-    filename: 'database.db',
+    filename: path.join(process.cwd(), 'database.db'),
     driver: sqlite3.Database
   });
-
-  // db.on('trace', (data) => {
-  //   console.log('DATA', data);
-  // })
 
   await migrate(db);
   return db;
@@ -23,13 +17,10 @@ export async function open() {
 async function migrate(db) {
   // explanation: es modules in node don't support __dirname 
   // TODO ^ doc link
-  const cwd = path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    'migrations'
-  );
+  const cwd = path.dirname(fileURLToPath(import.meta.url));
 
   await db.migrate({
-    migrationsPath: cwd
+    migrationsPath: path.join(cwd, 'migrations')
   });
 }
 
