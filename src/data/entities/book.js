@@ -23,7 +23,6 @@ async function add(isbn, title, author) {
 
 function remove(id) {
 
-
 }
 
 export async function getAll(filters = {}) {
@@ -59,6 +58,7 @@ async function checkOut(id) {
 
 }
 
+// mind, 'return' is a reserved word..
 async function giveBack(id) {
 
 }

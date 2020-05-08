@@ -3,15 +3,22 @@ maybe rename api to services, or controller - api would be done by api doc/index
 now: 
 
 - finish queries
-- make basic api in index
+- finish api in index
 
 - test db calls, test logic, test api
-- test logic around multiple copies
+  - test logic around multiple copies
 - error/exception handling (logic will probably be exceptions)
-- move all code into src/ folder - adjust package.json, docker
+
+- test dockerfile
+
+- go through TODOs
 
 - make sure to sanitize input - prepared statements doing this in db - schema would work for api
 
 - make centralized config
 - work out a proper es package setup
 - linter, logger
+- autoreload for dev, automated testing
+- discussion about code generators
+- discussion about api format
+- discussion about function naming format

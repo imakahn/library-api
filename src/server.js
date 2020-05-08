@@ -23,7 +23,7 @@ app.use(`${BASE_URL}/librarian`, (req, res, next) => {
 
   next();
 });
-app.get(`${BASE_URL}/librarian/overdue`, async (req, res) => {
+app.get(`${BASE_URL}/librarian/books.overdue`, async (req, res) => {
   res.json(await getAll({overdue: true}));
   // todo error handle (top level would work)
   // res.json(res);

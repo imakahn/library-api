@@ -97,3 +97,5 @@ internal one would simply use patch to update things - the client is returned a 
 the client isn't manipulating a resource in this case- not directly. it is unaware of its structure
 
 using dot structure to exemplify this is basically rpc
+
+- explain TODO usage in my IDE

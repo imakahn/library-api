@@ -2,71 +2,57 @@ const BORROW_LIMIT = 3;
 const BORROW_PERIOD = 14; // days
 
 /**
- *
+ * Return true if book is overdue
  *
  * @param {*} book
- * @returns
+ * @returns bool
  */
-function isOverdue(book) {
+export function isOverdue(book) {
   return (Date.now() - book.date_out) > BORROW_PERIOD;
-
 }
 
 /**
- *
+ * Return true if any book is overdue
  *
  * @param {*} books
- * @returns
+ * @returns bool
  */
-function hasOverdue(books) {
+export function hasOverdue(books) {
   const res = books.filter(book => isOverdue(book));
 
   return res > 0;
 }
 
 /**
+ * Determines if a user can check out a given ISBN.
+ * Returns object with success or failure, plus list of reasons for failure.
  *
- * rules: has < 3 checked out, none overdue, book available
+ * Rules: has < BORROW_LIMIT checked out, none overdue, book available
  *
- * @param {*} isbn
- * @param {*} uid
+ * @param {*} booksISBN
+ * @param {*} booksBorrowed
+ * @returns { result, reason }
  */
-function canCheckout(userBooks, title) { // title? bookCollection? titleList?
-  // TODO schema validation -- add to notes. plus caching -- assign uuid/track ID
-  // or assertions ^
+export function canCheckout(booksISBN, booksBorrowed) {
+  // TODO support checkout by title
   result = true;
   reason = [];
 
-  if(!books.length) {
+  // if no unreserved books remain 
+  if( !booksISBN.filter((book) => book.date_out == null).length ) {
     result = false;
     reason.push('book unavailable')
   }
 
-  if( userBooks.length > BORROW_LIMIT ) {
+  if( booksBorrowed.length >= BORROW_LIMIT ) {
     result = false;
-    reason.push('borrow limit exceeded');
+    reason.push(`${booksBorrowed.length} books already checked out`);
   }
 
-  if( hasOverdue(userBooks) ) {
+  if( hasOverdue(booksBorrowed) ) {
     result = false;
-    reason.push('books overdue');
+    reason.push('books overdue'); // TODO refactor to return list of overdue
   }
 
   return { result, reason };
 }
-
-// run queries:
-  // all checked out books for user
-  // all books of that isbn
-
-// do logic
-  // is count > config count
-  // is time > config days
-  // if book is available
-
-// these logic functions could be called by the db, or the router
-// router could also call something else that handles the calls to logic
-
-// isAvailable
-// userIsOverdue
-// checkoutCount
