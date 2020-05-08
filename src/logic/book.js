@@ -8,7 +8,9 @@ const BORROW_PERIOD = 14; // days
  * @returns bool
  */
 export function isOverdue(book) {
-  return (Date.now() - book.date_out) > BORROW_PERIOD;
+  return book.date_out
+    ? (Date.now() - new Date(book.date_out)) / 86400000 > BORROW_PERIOD
+    : false;
 }
 
 /**
@@ -20,7 +22,7 @@ export function isOverdue(book) {
 export function hasOverdue(books) {
   const res = books.filter(book => isOverdue(book));
 
-  return res > 0;
+  return res.length > 0;
 }
 
 /**
@@ -35,8 +37,8 @@ export function hasOverdue(books) {
  */
 export function canCheckout(booksISBN, booksBorrowed) {
   // TODO support checkout by title
-  result = true;
-  reason = [];
+  let result = true;
+  const reason = [];
 
   // if no unreserved books remain 
   if( !booksISBN.filter((book) => book.date_out == null).length ) {

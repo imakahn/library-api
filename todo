@@ -1,9 +1,7 @@
-maybe rename api to services, or controller - api would be done by api doc/index.js
-
 now: 
 
 - finish queries
-- finish api in index
+- finish api in server
 
 - test db calls, test logic, test api
   - test logic around multiple copies
@@ -22,3 +20,6 @@ now:
 - discussion about code generators
 - discussion about api format
 - discussion about function naming format
+- discussion ES module issues (including hilarious no-esm for tap)
+
+- do I need a map.js for test coverage?

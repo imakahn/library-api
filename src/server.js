@@ -28,5 +28,8 @@ app.get(`${BASE_URL}/librarian/books.overdue`, async (req, res) => {
   // todo error handle (top level would work)
   // res.json(res);
 });
+app.get(`${BASE_URL}/librarian/books.all`, async (req, res) => {
+  res.json(await getAll());
+});
 
 app.listen(PORT, () => console.log(`library API listening on port ${PORT}`));
